@@ -373,15 +373,17 @@ Polymer('g-spectrogram-mini', {
       didResize = true;
     }
 
-    document.getElementById('start-stop-btn').onclick = () => {
+    document.getElementById('record-btn').onclick = () => {
       if (this.stopped){
         this.stopped = false;
-        document.getElementById('predict-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
-        document.getElementById('start-stop-btn').innerHTML = "Pause";
+        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+        document.getElementById('record-btn').style.color= "var(--c3)";
+        document.getElementById('record-btn').textContent = "Pause"; 
       } else {
         this.stopped = true;
-        document.getElementById('predict-btn').style.color = "border: 3px solid var(--c1); var(--c1)";
-        document.getElementById('start-stop-btn').innerHTML = "Resume";
+        document.getElementById('record-btn').style.border = "3px solid var(--c1)";
+        document.getElementById('record-btn').style.color = "var(--c1)";
+        document.getElementById('record-btn').textContent = "Record";         
         // data_whole shape: 16 times length
         // console.log("this data whole array sync", this.data_whole.arraySync());
         this.custom_start_time_ms = this.start_time_ms;
@@ -423,19 +425,8 @@ Polymer('g-spectrogram-mini', {
       link.click();
     }
 
-    let predict_btn = document.getElementById('predict-btn');
+    let record_btn = document.getElementById('record-btn');
   
-    // predict_btn.addEventListener("mousedown", () => {
-    //   this.writing = true;
-    //   this.mouseOnPred = true;
-    // });
-    // predict_btn.addEventListener("mouseup", () => {
-    //   this.writing = true;
-    //   this.mouseOnPred = true;
-    // });
-    // predict_btn.addEventListener("mouseout", () => this.mouseOnPred = false);
-
-
     // predicting
     var currCol = this.extractFrequencies();
     currCol = tf.transpose(tf.tensor([currCol]));
@@ -449,7 +440,7 @@ Polymer('g-spectrogram-mini', {
       this.data_whole = data_whole;
     }
 
-    document.getElementById('predict-btn').onclick = () => {
+    document.getElementById('record-btn').onclick = () => {
       console.log('should reset height');
       document.getElementById('pred1').style = "height: 1vh";
       document.getElementById('pred2').style = "height: 1vh";
@@ -462,13 +453,13 @@ Polymer('g-spectrogram-mini', {
         this.currDat = tf.zeros([16, 1], dtype='float32');
         this.writing = true;
         this.color = true;
-        document.getElementById('predict-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
+        document.getElementById('record-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
         this.frames_since_last_coloured = 0;
         this.data_whole = tf.zeros([16, 1], dtype='float32');
       } else {
         this.writing = false;
         this.color = false;
-        document.getElementById('predict-btn').style.color = "border: 3px solid var(--c1); var(--c1)";
+        document.getElementById('record-btn').style.color = "border: 3px solid var(--c1); var(--c1)";
         var data_pre = data_whole.arraySync();
         this.predictModel(data_pre);
         this.stopped = true;
@@ -480,7 +471,7 @@ Polymer('g-spectrogram-mini', {
     if (this.stopped){
       document.getElementById('start-stop-btn').onclick = () => {
         this.stopped = false;
-        document.getElementById('predict-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
+        document.getElementById('record-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
         document.getElementById('start-stop-btn').innerHTML = "Pause";
       }
     }

@@ -6,7 +6,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 :root {
   --c1: #81F4E1;
   --c2: #56CBF9;
-  --c3: #FF729F;
+  --c3: #ff0051;
   --c4: #D3C4D1;
 }
 
@@ -95,7 +95,7 @@ a{
   display: none;
 }
 
-#predict-btn{
+#record-btn{
   border: 3px solid var(--c1);
   padding: 5px 10px;
   border-radius: 10px;
