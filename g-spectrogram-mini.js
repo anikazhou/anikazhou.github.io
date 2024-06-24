@@ -26,7 +26,7 @@ Polymer('g-spectrogram-mini', {
   amplitude_over_thresh: false,
   amplitude_thresh: -1500,
   prev_max: 0,
-  stopped: false, 
+  stopped: true, 
 
   // current data, 15 frames of 16 frequency bins
   currDat: tf.zeros([16, 15], dtype='float32'),
@@ -379,6 +379,8 @@ Polymer('g-spectrogram-mini', {
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
         document.getElementById('record-btn').textContent = "Pause"; 
+        this.custom_start_time_ms = this.start_time_ms;
+
       } else {
         this.stopped = true;
         document.getElementById('record-btn').style.border = "3px solid var(--c1)";
@@ -386,7 +388,6 @@ Polymer('g-spectrogram-mini', {
         document.getElementById('record-btn').textContent = "Record";         
         // data_whole shape: 16 times length
         // console.log("this data whole array sync", this.data_whole.arraySync());
-        this.custom_start_time_ms = this.start_time_ms;
       }
     }
     document.getElementById('spec-left').onclick = () => {
@@ -424,8 +425,6 @@ Polymer('g-spectrogram-mini', {
       link.download = file_name;
       link.click();
     }
-
-    let record_btn = document.getElementById('record-btn');
   
     // predicting
     var currCol = this.extractFrequencies();
@@ -469,10 +468,13 @@ Polymer('g-spectrogram-mini', {
     }
 
     if (this.stopped){
-      document.getElementById('start-stop-btn').onclick = () => {
+      document.getElementById('record-btn').onclick = () => {
         this.stopped = false;
-        document.getElementById('record-btn').style.color = "border: 3px solid var(--c2); var(--c2)";
-        document.getElementById('start-stop-btn').innerHTML = "Pause";
+        document.getElementById('record-btn').onclick = () => {
+        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+        document.getElementById('record-btn').style.color= "var(--c3)";
+        document.getElementById('record-btn').textContent = "Pause"; 
+        }
       }
     }
 
