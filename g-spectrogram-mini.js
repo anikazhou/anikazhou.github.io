@@ -338,32 +338,22 @@ Polymer('g-spectrogram-mini', {
     .catch(err =>
       console.log(err));
   },
-
+  // TODO: fix the audiocontext issue
   createAudioGraph: async function() {
     if (this.audioContext) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-        this.ctx = this.$.canvas.getContext('2d');
-        this.onStream(stream);
-        console.log("audio graph created")
-      } catch (e) {
-        this.onStreamError(e);
-        console.log("audio graph failed")
-      }
+      return;
     }
-    else{
-      // Get input from the microphone.
-      this.audioContext = new AudioContext({sampleRate: 22050});
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-        this.ctx = this.$.canvas.getContext('2d');
-        this.onStream(stream);
-        console.log("audio graph created")
-      } catch (e) {
-        this.onStreamError(e);
-        console.log("audio graph failed")
+     // Get input from the microphone.
+    this.audioContext = new AudioContext({sampleRate: 22050});
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      this.ctx = this.$.canvas.getContext('2d');
+      this.onStream(stream);
+      console.log("audio graph created")
+    } catch (e) {
+      this.onStreamError(e);
+      console.log("audio graph failed")
       }
-    }
   },
 
   render: function() {
