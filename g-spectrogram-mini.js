@@ -26,7 +26,7 @@ Polymer('g-spectrogram-mini', {
   amplitude_over_thresh: false,
   amplitude_thresh: -1500,
   prev_max: 0,
-  stopped: true, 
+  stopped: false, 
 
   // current data, 15 frames of 16 frequency bins
   currDat: tf.zeros([16, 15], dtype='float32'),
@@ -341,16 +341,28 @@ Polymer('g-spectrogram-mini', {
 
   createAudioGraph: async function() {
     if (this.audioContext) {
-      return;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+        this.ctx = this.$.canvas.getContext('2d');
+        this.onStream(stream);
+        console.log("audio graph created")
+      } catch (e) {
+        this.onStreamError(e);
+        console.log("audio graph failed")
+      }
     }
-    // Get input from the microphone.
-    this.audioContext = new AudioContext({sampleRate: 22050});
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-      this.ctx = this.$.canvas.getContext('2d');
-      this.onStream(stream);
-    } catch (e) {
-      this.onStreamError(e);
+    else{
+      // Get input from the microphone.
+      this.audioContext = new AudioContext({sampleRate: 22050});
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+        this.ctx = this.$.canvas.getContext('2d');
+        this.onStream(stream);
+        console.log("audio graph created")
+      } catch (e) {
+        this.onStreamError(e);
+        console.log("audio graph failed")
+      }
     }
   },
 
@@ -372,13 +384,13 @@ Polymer('g-spectrogram-mini', {
       this.$.labels.height = this.height;
       didResize = true;
     }
-
+    // TODO: fix this logic potentially
     document.getElementById('record-btn').onclick = () => {
       if (this.stopped){
         this.stopped = false;
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Pause"; 
+        document.getElementById('record-btn').textContent = "Stop"; 
         this.custom_start_time_ms = this.start_time_ms;
 
       } else {
@@ -407,24 +419,24 @@ Polymer('g-spectrogram-mini', {
       this.predictModel_noSegment();
     }
 
-    document.getElementById('download').onclick = () => {
-      console.log('downloading selected segment');
-      this.currDat = tf.zeros([16, 1], dtype='float32');
-      var link = document.createElement('a');
-      var data_pre = this.data_whole.arraySync();
-      var str = "";
-      for (row in data_pre) {
-        str += data_pre[row].toString();
-        str += '\n';
-      }
-      var data = new Blob([str], {type: 'text/plain'});
-      textFile = window.URL.createObjectURL(data);
-      console.log('File written successfully to', textFile);
-      link.href = textFile;
-      file_name = this.custom_start_time_ms.toString() + "data.txt"
-      link.download = file_name;
-      link.click();
-    }
+    // document.getElementById('download').onclick = () => {
+    //   console.log('downloading selected segment');
+    //   this.currDat = tf.zeros([16, 1], dtype='float32');
+    //   var link = document.createElement('a');
+    //   var data_pre = this.data_whole.arraySync();
+    //   var str = "";
+    //   for (row in data_pre) {
+    //     str += data_pre[row].toString();
+    //     str += '\n';
+    //   }
+    //   var data = new Blob([str], {type: 'text/plain'});
+    //   textFile = window.URL.createObjectURL(data);
+    //   console.log('File written successfully to', textFile);
+    //   link.href = textFile;
+    //   file_name = this.custom_start_time_ms.toString() + "data.txt"
+    //   link.download = file_name;
+    //   link.click();
+    // }
   
     // predicting
     var currCol = this.extractFrequencies();
@@ -438,7 +450,7 @@ Polymer('g-spectrogram-mini', {
       var data_whole = tf.concat([this.data_whole, currCol], 1);
       this.data_whole = data_whole;
     }
-
+    // TODO: fix
     document.getElementById('record-btn').onclick = () => {
       console.log('should reset height');
       document.getElementById('pred1').style = "height: 1vh";
@@ -473,7 +485,7 @@ Polymer('g-spectrogram-mini', {
         document.getElementById('record-btn').onclick = () => {
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Pause"; 
+        document.getElementById('record-btn').textContent = "Stop"; 
         }
       }
     }
