@@ -26,7 +26,8 @@ Polymer('g-spectrogram-mini', {
   amplitude_over_thresh: false,
   amplitude_thresh: -1500,
   prev_max: 0,
-  stopped: false, 
+  stopped: false,
+  once: false, 
 
   // current data, 15 frames of 16 frequency bins
   currDat: tf.zeros([16, 15], dtype='float32'),
@@ -338,7 +339,7 @@ Polymer('g-spectrogram-mini', {
     .catch(err =>
       console.log(err));
   },
-  // TODO: fix the audiocontext issue
+
   createAudioGraph: async function() {
     if (this.audioContext) {
       return;
@@ -376,20 +377,28 @@ Polymer('g-spectrogram-mini', {
     }
     // TODO: fix this logic potentially
     document.getElementById('record-btn').onclick = () => {
-      if (this.stopped){
+      if (this.stopped==false && this.once==false){
+        this.once = true;
+        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+        document.getElementById('record-btn').style.color= "var(--c3)";
+        document.getElementById('record-btn').textContent = "Stop";
+        this.custom_start_time_ms = this.start_time_ms;  
+      }
+      else if (this.stopped==false){
+        this.stopped = true;
+        document.getElementById('record-btn').style.border = "3px solid var(--c2)";
+        document.getElementById('record-btn').style.color= "var(--c2)";
+        document.getElementById('record-btn').textContent = "Record"; 
+
+      }         
+        // data_whole shape: 16 times length
+        // console.log("this data whole array sync", this.data_whole.arraySync());
+      else {
         this.stopped = false;
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
         document.getElementById('record-btn').textContent = "Stop"; 
         this.custom_start_time_ms = this.start_time_ms;
-
-      } else {
-        this.stopped = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c1)";
-        document.getElementById('record-btn').style.color = "var(--c1)";
-        document.getElementById('record-btn').textContent = "Record";         
-        // data_whole shape: 16 times length
-        // console.log("this data whole array sync", this.data_whole.arraySync());
       }
     }
     document.getElementById('spec-left').onclick = () => {
@@ -443,13 +452,13 @@ Polymer('g-spectrogram-mini', {
     // TODO: fix
     document.getElementById('record-btn').onclick = () => {
       console.log('should reset height');
-      document.getElementById('pred1').style = "height: 1vh";
-      document.getElementById('pred2').style = "height: 1vh";
-      document.getElementById('pred3').style = "height: 1vh";
-      document.getElementById('pred1_text').innerHTML = "";
-      document.getElementById('pred2_text').innerHTML = "";
-      document.getElementById('pred3_text').innerHTML = "";
-      document.getElementById("predClass").innerHTML = "";
+      // document.getElementById('pred1').style = "height: 1vh";
+      // document.getElementById('pred2').style = "height: 1vh";
+      // document.getElementById('pred3').style = "height: 1vh";
+      // document.getElementById('pred1_text').innerHTML = "";
+      // document.getElementById('pred2_text').innerHTML = "";
+      // document.getElementById('pred3_text').innerHTML = "";
+      // document.getElementById("predClass").innerHTML = "";
       if (this.writing == false){
         this.currDat = tf.zeros([16, 1], dtype='float32');
         this.writing = true;
