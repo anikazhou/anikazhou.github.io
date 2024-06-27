@@ -466,9 +466,11 @@ Polymer('g-spectrogram-mini', {
         this.writing = true;
         this.color = true;
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";        
+        document.getElementById('record-btn').style.color= "var(--c3)";  
+        document.getElementById('record-btn').textContent = "Stop";
         this.frames_since_last_coloured = 0;
         this.data_whole = tf.zeros([16, 1], dtype='float32');
+        console.log("writing")
       } else {
         this.writing = false;
         this.color = false;
@@ -477,8 +479,9 @@ Polymer('g-spectrogram-mini', {
         var data_pre = data_whole.arraySync();
         this.predictModel(data_pre);
         this.stopped = true;
-        document.getElementById('start-stop-btn').innerHTML = "Resume";
+        document.getElementById('record-btn').textContent = "Record";
         this.custom_start_time_ms = this.start_time_ms;
+        console.log("stopped")
       }
     }
 
@@ -489,7 +492,7 @@ Polymer('g-spectrogram-mini', {
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
         document.getElementById('record-btn').textContent = "Stop"; 
-        console.log("recording/writing")
+        console.log("started")
         }
       }
     }
