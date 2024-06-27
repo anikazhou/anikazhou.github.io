@@ -489,6 +489,7 @@ Polymer('g-spectrogram-mini', {
         document.getElementById('record-btn').style.border = "3px solid var(--c3)";
         document.getElementById('record-btn').style.color= "var(--c3)";
         document.getElementById('record-btn').textContent = "Stop"; 
+        console.log("recording/writing")
         }
       }
     }
