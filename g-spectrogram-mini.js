@@ -606,7 +606,7 @@ Polymer('g-spectrogram-mini', {
         var y = Math.round(percent * this.height + 80);
 
         // draw the line at the right side of the canvas
-        ctx.fillRect(this.width - this.speed, this.height,
+        ctx.fillRect(this.width - this.speed, this.height-y,
                     this.speed, this.height / 16);
       }
 
