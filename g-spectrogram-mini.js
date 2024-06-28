@@ -461,13 +461,19 @@ Polymer('g-spectrogram-mini', {
       // document.getElementById('pred2_text').innerHTML = "";
       // document.getElementById('pred3_text').innerHTML = "";
       // document.getElementById("predClass").innerHTML = "";
+      if (this.stopped){
+          this.stopped = false;
+          document.getElementById('record-btn').onclick = () => {
+          document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+          document.getElementById('record-btn').style.color= "var(--c3)";
+          document.getElementById('record-btn').textContent = "Stop"; 
+          console.log("started")
+        }
+      }
       if (this.writing == false){
         this.currDat = tf.zeros([16, 1], dtype='float32');
         this.writing = true;
         this.color = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";  
-        document.getElementById('record-btn').textContent = "Stop";
         this.frames_since_last_coloured = 0;
         this.data_whole = tf.zeros([16, 1], dtype='float32');
         console.log("writing")
