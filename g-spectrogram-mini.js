@@ -376,33 +376,33 @@ Polymer('g-spectrogram-mini', {
       didResize = true;
     }
 
-    document.getElementById('record-btn').onclick = () => {
-      if (this.stopped==false && this.once==false){
-        this.once = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Stop";
-        this.custom_start_time_ms = this.start_time_ms; 
-        console.log("recording") 
-      }
-      else if (this.stopped==false){
-        this.stopped = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c2)";
-        document.getElementById('record-btn').style.color= "var(--c2)";
-        document.getElementById('record-btn').textContent = "Record"; 
-        console.log("recording stopped")
-      }         
-        // data_whole shape: 16 times length
-        // console.log("this data whole array sync", this.data_whole.arraySync());
-      else {
-        this.stopped = false;
-        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Stop"; 
-        console.log("recording") 
-        this.custom_start_time_ms = this.start_time_ms;
-      }
-    }
+    // document.getElementById('record-btn').onclick = () => {
+    //   if (this.stopped==false && this.once==false){
+    //     this.once = true;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+    //     document.getElementById('record-btn').style.color= "var(--c3)";
+    //     document.getElementById('record-btn').textContent = "Stop";
+    //     this.custom_start_time_ms = this.start_time_ms; 
+    //     console.log("recording") 
+    //   }
+    //   else if (this.stopped==false){
+    //     this.stopped = true;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c2)";
+    //     document.getElementById('record-btn').style.color= "var(--c2)";
+    //     document.getElementById('record-btn').textContent = "Record"; 
+    //     console.log("recording stopped")
+    //   }         
+    //     // data_whole shape: 16 times length
+    //     // console.log("this data whole array sync", this.data_whole.arraySync());
+    //   else {
+    //     this.stopped = false;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+    //     document.getElementById('record-btn').style.color= "var(--c3)";
+    //     document.getElementById('record-btn').textContent = "Stop"; 
+    //     console.log("recording") 
+    //     this.custom_start_time_ms = this.start_time_ms;
+    //   }
+    // }
     document.getElementById('spec-left').onclick = () => {
       console.log('left clicked');
       this.custom_start_time_ms -= 10;
@@ -451,7 +451,7 @@ Polymer('g-spectrogram-mini', {
       var data_whole = tf.concat([this.data_whole, currCol], 1);
       this.data_whole = data_whole;
     }
-    // TODO: fix
+    
     document.getElementById('record-btn').onclick = () => {
       console.log('should reset height');
       // document.getElementById('pred1').style = "height: 1vh";
@@ -606,7 +606,7 @@ Polymer('g-spectrogram-mini', {
         var y = Math.round(percent * this.height + 80);
 
         // draw the line at the right side of the canvas
-        ctx.fillRect(this.width - this.speed, this.height - y,
+        ctx.fillRect(this.width - this.speed, this.height,
                     this.speed, this.height / 16);
       }
 
