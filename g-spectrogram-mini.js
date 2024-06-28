@@ -634,7 +634,13 @@ Polymer('g-spectrogram-mini', {
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
       console.log(this.width + "width")
       console.log("shift" + horiz_shift_start1)
-      tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
+      if (horiz_shift_start1>0) {
+        tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
+      }
+      else {
+        tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
+
+      }
       
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
