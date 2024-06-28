@@ -632,8 +632,8 @@ Polymer('g-spectrogram-mini', {
       tempCtx2.fillRect(this.width - horiz_shift_start, 0, 5, this.height);
 
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
-      print(this.width + "width")
-      print ("shift" + horiz_shift_start1)
+      console.log(this.width + "width")
+      console.log("shift" + horiz_shift_start1)
       tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
       
       // Translate the canvas.
