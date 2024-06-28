@@ -627,7 +627,6 @@ Polymer('g-spectrogram-mini', {
       // draw start time line
       var horiz = this.data_whole.shape[1];
       var horiz_shift = (horiz + this.frames_since_last_coloured) * this.speed 
-      tempCtx2.fillRect(this.width - horiz_shift, 0, 5, this.height);
       var horiz_shift_start = horiz_shift - this.custom_start_time_ms / 10 * this.speed;
       tempCtx2.fillStyle = 'rgb(0, 255, 255)';
       tempCtx2.fillRect(this.width - horiz_shift_start, 0, 5, this.height);
