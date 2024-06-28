@@ -403,22 +403,22 @@ Polymer('g-spectrogram-mini', {
         this.custom_start_time_ms = this.start_time_ms;
       }
     }
-    document.getElementById('spec-left').onclick = () => {
-      console.log('left clicked');
-      this.custom_start_time_ms -= 10;
-      this.predictModel_noSegment();
-    }
+    // document.getElementById('spec-left').onclick = () => {
+    //   console.log('left clicked');
+    //   this.custom_start_time_ms -= 10;
+    //   this.predictModel_noSegment();
+    // }
 
-    document.getElementById('spec-right').onclick = () => {
-      console.log('right clicked');
-      this.custom_start_time_ms += 10;
-      this.predictModel_noSegment();
-    }
+    // document.getElementById('spec-right').onclick = () => {
+    //   console.log('right clicked');
+    //   this.custom_start_time_ms += 10;
+    //   this.predictModel_noSegment();
+    // }
 
-    document.getElementById('spec-pred').onclick = () => {
-      console.log('predicting!!');
-      this.predictModel_noSegment();
-    }
+    // document.getElementById('spec-pred').onclick = () => {
+    //   console.log('predicting!!');
+    //   this.predictModel_noSegment();
+    // }
 
     // document.getElementById('download').onclick = () => {
     //   console.log('downloading selected segment');
@@ -625,7 +625,6 @@ Polymer('g-spectrogram-mini', {
       tempCtx2.drawImage(this.tempCanvas, 0, 0, this.width, this.height);
 
       // draw start time line
-      tempCtx2.fillStyle = 'rgb(0, 0, 255)';
       var horiz = this.data_whole.shape[1];
       var horiz_shift = (horiz + this.frames_since_last_coloured) * this.speed 
       tempCtx2.fillRect(this.width - horiz_shift, 0, 5, this.height);
