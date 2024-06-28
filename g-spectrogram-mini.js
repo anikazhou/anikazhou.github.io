@@ -607,7 +607,7 @@ Polymer('g-spectrogram-mini', {
 
         // draw the line at the right side of the canvas
         ctx.fillRect(this.width - this.speed, this.height-y,
-                    this.speed, this.height / 16);
+                    this.speed, this.height);
       }
 
       // Translate the canvas.
