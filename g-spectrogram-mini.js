@@ -463,12 +463,10 @@ Polymer('g-spectrogram-mini', {
       // document.getElementById("predClass").innerHTML = "";
       if (this.stopped){
           this.stopped = false;
-          document.getElementById('record-btn').onclick = () => {
           document.getElementById('record-btn').style.border = "3px solid var(--c3)";
           document.getElementById('record-btn').style.color= "var(--c3)";
           document.getElementById('record-btn').textContent = "Stop"; 
           console.log("started")
-        }
       }
       if (this.writing == false){
         this.currDat = tf.zeros([16, 1], dtype='float32');
