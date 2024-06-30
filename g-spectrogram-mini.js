@@ -44,7 +44,7 @@ Polymer('g-spectrogram-mini', {
   attachedCallback: async function() {
     this.tempCanvas = document.createElement('canvas'),
     this.tempCanvas2 = document.createElement('canvas'),
-    this.segment_view = document.getElementById('segment_view')
+    this.segmentview = document.createElement('canvas')
     console.log('Created spectrogram');
     // console.log('cur dat', this.currDat);
 
@@ -350,6 +350,7 @@ Polymer('g-spectrogram-mini', {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({audio: true});
       this.ctx = this.$.canvas.getContext('2d');
+      this.segmentCtx = this.$.segment_view.getContext('2d')
       this.onStream(stream);
       console.log("audio graph created")
     } catch (e) {
@@ -577,8 +578,11 @@ Polymer('g-spectrogram-mini', {
       //console.warn(`Looks like zeros...`);
     }
 
-    var ctx = this.ctx;
     // Copy the current canvas onto the temp canvas.
+    var ctx = this.ctx;
+    var segmentCtx = this.segmentCtx
+    var tempSegmentCtx = this.segmentview.getContext('2d');
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -588,7 +592,6 @@ Polymer('g-spectrogram-mini', {
       var tempCtx2 = this.tempCanvas2.getContext('2d');
       tempCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height);
       tempCtx2.drawImage(this.$.canvas, 0, 0, this.width, this.height);
-
       // Iterate over the frequencies.
       var freq16 = this.extractFrequenciesByte();
       for (var i = 0; i < 16; i++) {
@@ -620,7 +623,6 @@ Polymer('g-spectrogram-mini', {
       // Reset the transformation matrix.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
     } else {
-      var segmentCtx = this.segment_view.getContext('2d');
       this.tempCanvas2.width = this.width;
       this.tempCanvas2.height = this.height;
       var tempCtx2 = this.tempCanvas2.getContext('2d');
@@ -634,15 +636,20 @@ Polymer('g-spectrogram-mini', {
       tempCtx2.fillRect(this.width - horiz_shift_start, 0, 5, this.height);
 
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
-      console.log(this.width + "width")
-      console.log("shift" + horiz_shift_start1)
+      
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        segmentCtx.drawImage(ctx.canvas, this.width - horiz_shift_start1, this.height)
+        segmentCtx.drawImage(this.tempSegmentCtx, this.width - horiz_shift_start, 
+          0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.height, 
+          0, 0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.height)
+        console.log("drawn reg")      
       }
       else {
-        segmentCtx.drawImage(ctx.canvas, this.width - 10, this.height)
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
+        segmentCtx.drawImage(this.tempSegmentCtx, this.width - horiz_shift_start, 0,
+          horiz_shift_start - 10, tempSegmentCtx.height, 0, 0, horiz_shift_start - 10, 
+          tempSegmentCtx.height)
+        console.log("drawn other")
       }
       
       // Translate the canvas.
@@ -650,7 +657,7 @@ Polymer('g-spectrogram-mini', {
       // Draw the copied image.
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
                     0, 0, this.width, this.height);
-
+      
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
