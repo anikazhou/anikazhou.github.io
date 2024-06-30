@@ -377,33 +377,33 @@ Polymer('g-spectrogram-mini', {
       didResize = true;
     }
 
-    document.getElementById('record-btn').onclick = () => {
-      if (this.stopped==false && this.once==false){
-        this.once = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Stop";
-        this.custom_start_time_ms = this.start_time_ms; 
-        console.log("recording") 
-      }
-      else if (this.stopped==false){
-        this.stopped = true;
-        document.getElementById('record-btn').style.border = "3px solid var(--c2)";
-        document.getElementById('record-btn').style.color= "var(--c2)";
-        document.getElementById('record-btn').textContent = "Record"; 
-        console.log("recording stopped")
-      }         
-        // data_whole shape: 16 times length
-        // console.log("this data whole array sync", this.data_whole.arraySync());
-      else {
-        this.stopped = false;
-        document.getElementById('record-btn').style.border = "3px solid var(--c3)";
-        document.getElementById('record-btn').style.color= "var(--c3)";
-        document.getElementById('record-btn').textContent = "Stop"; 
-        console.log("recording") 
-        this.custom_start_time_ms = this.start_time_ms;
-      }
-    }
+    // document.getElementById('record-btn').onclick = () => {
+    //   if (this.stopped==false && this.once==false){
+    //     this.once = true;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+    //     document.getElementById('record-btn').style.color= "var(--c3)";
+    //     document.getElementById('record-btn').textContent = "Stop";
+    //     this.custom_start_time_ms = this.start_time_ms; 
+    //     console.log("recording") 
+    //   }
+    //   else if (this.stopped==false){
+    //     this.stopped = true;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c2)";
+    //     document.getElementById('record-btn').style.color= "var(--c2)";
+    //     document.getElementById('record-btn').textContent = "Record"; 
+    //     console.log("recording stopped")
+    //   }         
+    //     // data_whole shape: 16 times length
+    //     // console.log("this data whole array sync", this.data_whole.arraySync());
+    //   else {
+    //     this.stopped = false;
+    //     document.getElementById('record-btn').style.border = "3px solid var(--c3)";
+    //     document.getElementById('record-btn').style.color= "var(--c3)";
+    //     document.getElementById('record-btn').textContent = "Stop"; 
+    //     console.log("recording") 
+    //     this.custom_start_time_ms = this.start_time_ms;
+    //   }
+    // }
     // document.getElementById('spec-left').onclick = () => {
     //   console.log('left clicked');
     //   this.custom_start_time_ms -= 10;
@@ -620,6 +620,7 @@ Polymer('g-spectrogram-mini', {
       // Reset the transformation matrix.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
     } else {
+      var segmentCtx = this.segment_view.getContext('2d');
       this.tempCanvas2.width = this.width;
       this.tempCanvas2.height = this.height;
       var tempCtx2 = this.tempCanvas2.getContext('2d');
@@ -635,10 +636,12 @@ Polymer('g-spectrogram-mini', {
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
       console.log(this.width + "width")
       console.log("shift" + horiz_shift_start1)
-      if (horiz_shift_start1 >0) {
+      if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
+        segmentCtx.drawImage(ctx.canvas, this.width - horiz_shift_start1, this.height)
       }
       else {
+        segmentCtx.drawImage(ctx.canvas, this.width - 10, this.height)
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
       }
       
