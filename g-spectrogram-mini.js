@@ -47,6 +47,15 @@ Polymer('g-spectrogram-mini', {
     console.log('Created spectrogram');
     // console.log('cur dat', this.currDat);
 
+    // load new box
+    document.addEventListener('DOMContentLoaded', () => {
+      const segment_view = document.createElement('div');
+      segment_view.className = 'segment_view';
+      const container = document.getElementById('mini-spectrogram');
+      container.appendChild(segment_view);
+    });
+    console.log('added segment viewer')
+
     // Require user gesture before creating audio context, etc.
     window.addEventListener('mousedown', () => this.createAudioGraph());
     window.addEventListener('touchstart', () => this.createAudioGraph());
@@ -634,7 +643,7 @@ Polymer('g-spectrogram-mini', {
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
       console.log(this.width + "width")
       console.log("shift" + horiz_shift_start1)
-      if (horiz_shift_start1>0) {
+      if (horiz_shift_start1 >0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
       }
       else {
