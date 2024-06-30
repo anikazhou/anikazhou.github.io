@@ -350,7 +350,8 @@ Polymer('g-spectrogram-mini', {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({audio: true});
       this.ctx = this.$.canvas.getContext('2d');
-      this.segmentCtx = this.$.segment_view.getContext('2d')
+      segment_view = document.getElementById('segment_view');
+      this.segmentCtx = segment_view.getContext('2d')
       this.onStream(stream);
       console.log("audio graph created")
     } catch (e) {
