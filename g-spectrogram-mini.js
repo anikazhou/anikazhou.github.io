@@ -44,17 +44,9 @@ Polymer('g-spectrogram-mini', {
   attachedCallback: async function() {
     this.tempCanvas = document.createElement('canvas'),
     this.tempCanvas2 = document.createElement('canvas'),
+    this.segment_view = document.getElementById('segment_view')
     console.log('Created spectrogram');
     // console.log('cur dat', this.currDat);
-
-    // load new box
-    document.addEventListener('DOMContentLoaded', () => {
-      const segment_view = document.createElement('div');
-      segment_view.className = 'segment_view';
-      const container = document.getElementById('mini-spectrogram');
-      container.appendChild(segment_view);
-    });
-    console.log('added segment viewer')
 
     // Require user gesture before creating audio context, etc.
     window.addEventListener('mousedown', () => this.createAudioGraph());
@@ -648,7 +640,6 @@ Polymer('g-spectrogram-mini', {
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
-
       }
       
       // Translate the canvas.
