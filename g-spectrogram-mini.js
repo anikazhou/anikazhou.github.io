@@ -651,6 +651,7 @@ Polymer('g-spectrogram-mini', {
           horiz_shift_start - 10, tempSegmentCtx.canvas.height)
         console.log("drawn other")
       }
+      tempSegmentCtx.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);
       
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
