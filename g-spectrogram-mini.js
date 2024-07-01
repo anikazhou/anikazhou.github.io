@@ -42,9 +42,9 @@ Polymer('g-spectrogram-mini', {
   mouseOnPred: false,
   
   attachedCallback: async function() {
-    this.tempCanvas = document.createElement('canvas'),
-    this.tempCanvas2 = document.createElement('canvas'),
-    this.segmentview = document.createElement('canvas')
+    this.tempCanvas = document.createElement('canvas');
+    this.tempCanvas2 = document.createElement('canvas');
+    this.segmentview = document.createElement('canvas');
     console.log('Created spectrogram');
     // console.log('cur dat', this.currDat);
 
@@ -350,7 +350,7 @@ Polymer('g-spectrogram-mini', {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({audio: true});
       this.ctx = this.$.canvas.getContext('2d');
-      segment_view = document.getElementById('segment_view');
+      const segment_view = document.getElementById('segmentview');
       this.segmentCtx = segment_view.getContext('2d')
       this.onStream(stream);
       console.log("audio graph created")
@@ -640,16 +640,16 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        segmentCtx.drawImage(this.tempSegmentCtx, this.width - horiz_shift_start, 
-          0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.height, 
-          0, 0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.height)
+        segmentCtx.drawImage(tempSegmentCtx, this.width - horiz_shift_start, 
+          0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
+          0, 0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height)
         console.log("drawn reg")      
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
-        segmentCtx.drawImage(this.tempSegmentCtx, this.width - horiz_shift_start, 0,
-          horiz_shift_start - 10, tempSegmentCtx.height, 0, 0, horiz_shift_start - 10, 
-          tempSegmentCtx.height)
+        segmentCtx.drawImage(tempSegmentCtx, this.width - horiz_shift_start, 0,
+          horiz_shift_start - 10, tempSegmentCtx.canvas.height, 0, 0, 
+          horiz_shift_start - 10, tempSegmentCtx.canvas.height)
         console.log("drawn other")
       }
       
