@@ -44,7 +44,7 @@ Polymer('g-spectrogram-mini', {
   attachedCallback: async function() {
     this.tempCanvas = document.createElement('canvas');
     this.tempCanvas2 = document.createElement('canvas');
-    this.segmentview = document.createElement('canvas');
+    this.segview = document.createElement('canvas');
     console.log('Created spectrogram');
     // console.log('cur dat', this.currDat);
 
@@ -350,8 +350,7 @@ Polymer('g-spectrogram-mini', {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({audio: true});
       this.ctx = this.$.canvas.getContext('2d');
-      const segment_view = document.getElementById('segmentview');
-      this.segmentCtx = segment_view.getContext('2d')
+      this.segmentCtx = this.$.segmentview.getContext('2d')
       this.onStream(stream);
       console.log("audio graph created")
     } catch (e) {
@@ -582,8 +581,10 @@ Polymer('g-spectrogram-mini', {
     // Copy the current canvas onto the temp canvas.
     var ctx = this.ctx;
     var segmentCtx = this.segmentCtx
-    var tempSegmentCtx = this.segmentview.getContext('2d');
+    var tempSegmentCtx = this.segview.getContext('2d');
     tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
+    console.log(typeof(tempSegmentCtx))
+    console.log(typeof(segmentCtx))
 
     // not stopped case: keep plotting
     if (this.stopped == false){
