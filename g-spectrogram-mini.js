@@ -583,6 +583,8 @@ Polymer('g-spectrogram-mini', {
     var segmentCtx = this.segmentCtx
     var tempSegmentCtx = this.segview.getContext('2d');
     tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
+    console.log("set height")
+    console.log(this.height)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -642,7 +644,9 @@ Polymer('g-spectrogram-mini', {
         segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
           0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
           0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
-        console.log("drawn reg")      
+        console.log("drawn reg")   
+        console.log("new height")
+        console.log(this.height)   
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
