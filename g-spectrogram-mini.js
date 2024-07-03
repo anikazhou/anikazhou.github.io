@@ -582,9 +582,9 @@ Polymer('g-spectrogram-mini', {
     var ctx = this.ctx;
     var segmentCtx = this.segmentCtx
     var tempSegmentCtx = this.segview.getContext('2d');
-    this.segmentview.width = this.$.canvas.width;
-    this.segmentview.height = this.$.canvas.height;
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segmentview.width, this.segmentview.height)
+    this.segview.width = this.$.canvas.width;
+    this.segview.height = this.$.canvas.height;
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segview.width, this.segview.height)
     console.log("set height")
 
     // not stopped case: keep plotting
