@@ -584,7 +584,6 @@ Polymer('g-spectrogram-mini', {
     var tempSegmentCtx = this.segview.getContext('2d');
     tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
     console.log("set height")
-    console.log(this.height)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -641,18 +640,22 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
-          0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
-          0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.width, this.height,
+          0, 0, this.width, this.height)
+        // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
+        //   0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
+        //   0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
         console.log("drawn reg")   
         console.log("new height")
-        console.log(this.height)   
+         
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
-        segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
-          this.width - horiz_shift_start - 10, this.height, 0, 0, 
-          this.width - horiz_shift_start, this.height)
+        // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
+        //   this.width - horiz_shift_start - 10, this.height, 0, 0, 
+        //   this.width - horiz_shift_start, this.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.width, this.height,
+          0, 0, this.width, this.height)
         console.log("drawn other")
       }
       tempSegmentCtx.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);
