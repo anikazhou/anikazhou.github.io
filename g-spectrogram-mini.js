@@ -642,6 +642,8 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
+        var imageData = tempSegmentCtx.getImageData(0, 0, this.width, this.height);
+        console.log(imageData);
         segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
           0, 0, segview_width, segview_height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
@@ -658,6 +660,9 @@ Polymer('g-spectrogram-mini', {
           0, 0, segview_width, segview_height)
         console.log("drawn other")
       }
+      console.log(`Source Canvas: ${this.$.canvas.width}x${this.$.canvas.height}`);
+      console.log(`Temp Canvas: ${this.tempCanvas.width}x${this.tempCanvas.height}`);
+      console.log(`Segment Canvas: ${this.segmentview.width}x${this.segmentview.height}`);
       tempSegmentCtx.clearRect(0, 0, this.width, this.height);
       
       // Translate the canvas.
