@@ -623,7 +623,7 @@ Polymer('g-spectrogram-mini', {
     } else {
       var tempSegmentCtx = this.segview.getContext('2d');
       tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
-      tempSegmentCtx.scale(1/4, 1/4);
+      segmentCtx.scale(1/4, 1/4);
       this.tempCanvas2.width = this.width;
       this.tempCanvas2.height = this.height;
       var tempCtx2 = this.tempCanvas2.getContext('2d');
@@ -659,7 +659,7 @@ Polymer('g-spectrogram-mini', {
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
         0, 0, this.width, this.height);
 
-      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);    
+      segmentCtx.setTransform(1, 0, 0, 1, 0, 0);    
       tempSegmentCtx.clearRect(0, 0, this.width, this.height);  
       
       // Reset the transformation matrix.
