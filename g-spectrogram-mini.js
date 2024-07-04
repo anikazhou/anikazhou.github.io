@@ -623,6 +623,11 @@ Polymer('g-spectrogram-mini', {
       // Reset the transformation matrix.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
     } else {
+      var tempSegmentCtx = this.$.segmentview.getContext('2d');
+      tempSegmentCtx.clearRect(0, 0, this.width, this.height);
+      // var tempSegmentCtx = this.segview.getContext('2d');
+      tempSegmentCtx.scale(1/4, 1/4);
+      tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
       this.tempCanvas2.width = this.width;
       this.tempCanvas2.height = this.height;
       var tempCtx2 = this.tempCanvas2.getContext('2d');
@@ -639,20 +644,16 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
-        //   0, 0, segview_width, segview_height)
-        // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
-        //   0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
-        //   0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
+          0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
+          0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
         console.log("drawn reg")          
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
-        // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
-        //   this.width - horiz_shift_start - 10, this.height, 0, 0, 
-        //   this.width - horiz_shift_start, this.height)
-        // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
-        //   0, 0, segview_width, segview_height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
+          this.width - horiz_shift_start - 10, this.height, 0, 0, 
+          this.width - horiz_shift_start - 10, this.height)
         console.log("drawn other")
       }      
       // Translate the canvas.
@@ -660,14 +661,8 @@ Polymer('g-spectrogram-mini', {
       // Draw the copied image.
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
         0, 0, this.width, this.height);
-      var tempSegmentCtx = this.$.segmentview.getContext('2d');
-      tempSegmentCtx.clearRect(0, 0, this.width, this.height);
-      // var tempSegmentCtx = this.segview.getContext('2d');
-      tempSegmentCtx.scale(1/4, 1/4);
-      tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
-      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);
-      console.log(this.$.canvas.width)
-      
+
+      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);      
       
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
