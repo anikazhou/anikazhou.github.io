@@ -582,10 +582,10 @@ Polymer('g-spectrogram-mini', {
     var ctx = this.ctx;
     var segmentCtx = this.segmentCtx
     var tempSegmentCtx = this.segview.getContext('2d');
-    this.segview.width = this.$.canvas.width;
-    this.segview.height = this.$.canvas.height;
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segview.width, this.segview.height, 
-                            0, 0, this.segview.width, this.segview.width)
+    const segview_width = this.$.canvas.width;
+    const segview_height = this.$.canvas.height;
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, segview_width, segview_height, 
+                            0, 0, segview_width, segview_width)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -642,22 +642,20 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.segview.width, this.segview.width,
-          0, 0, this.segview.width, this.segview.width)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
+          0, 0, segview_width, segview_height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
         //   0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
         //   0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
-        console.log("drawn reg")   
-        console.log("new height")
-         
+        console.log("drawn reg")          
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
         //   this.width - horiz_shift_start - 10, this.height, 0, 0, 
         //   this.width - horiz_shift_start, this.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.segview.width, this.segview.width,
-          0, 0, this.segview.width, this.segview.width)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
+          0, 0, segview_width, segview_height)
         console.log("drawn other")
       }
       tempSegmentCtx.clearRect(0, 0, this.width, this.height);
