@@ -584,11 +584,8 @@ Polymer('g-spectrogram-mini', {
     var tempSegmentCtx = this.segview.getContext('2d');
     this.segview.width = this.$.canvas.width;
     this.segview.height = this.$.canvas.height;
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segview.width, this.segview.height)
-    console.log("set width")
-    console.log(this.segview.width)
-    console.log("real width")
-    console.log(this.$.canvas.width)
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segview.width, this.segview.height, 
+                            0, 0, this.segview.width, this.segview.width)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -645,8 +642,8 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.width, this.height,
-          0, 0, this.width, this.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.segview.width, this.segview.width,
+          0, 0, this.segview.width, this.segview.width)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
         //   0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
         //   0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
@@ -659,8 +656,8 @@ Polymer('g-spectrogram-mini', {
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
         //   this.width - horiz_shift_start - 10, this.height, 0, 0, 
         //   this.width - horiz_shift_start, this.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.width, this.height,
-          0, 0, this.width, this.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, this.segview.width, this.segview.width,
+          0, 0, this.segview.width, this.segview.width)
         console.log("drawn other")
       }
       tempSegmentCtx.clearRect(0, 0, this.width, this.height);
