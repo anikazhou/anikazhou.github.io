@@ -497,10 +497,6 @@ Polymer('g-spectrogram-mini', {
         console.log("stopped")
       }
     }
-    var tempSegmentCtx = this.$.segmentview.getContext('2d');
-    // var tempSegmentCtx = this.segview.getContext('2d');
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
-    console.log(this.$.canvas.width)
 
     // if (this.stopped){
     //   document.getElementById('record-btn').onclick = () => {
@@ -659,6 +655,10 @@ Polymer('g-spectrogram-mini', {
         //   0, 0, segview_width, segview_height)
         console.log("drawn other")
       }      
+      var tempSegmentCtx = this.$.segmentview.getContext('2d');
+      // var tempSegmentCtx = this.segview.getContext('2d');
+      tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
+      console.log(this.$.canvas.width)
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
       // Draw the copied image.
