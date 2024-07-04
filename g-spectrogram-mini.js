@@ -659,7 +659,13 @@ Polymer('g-spectrogram-mini', {
       // ctx.translate(-this.speed, 0);
       // Draw the copied image.
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
-                    0, 0, this.width, this.height);
+        0, 0, this.width, this.height);
+      var tempSegmentCtx = this.$.segmentview.getContext('2d');
+      tempSegmentCtx.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
+      // var tempSegmentCtx = this.segview.getContext('2d');
+      tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
+      console.log(this.$.canvas.width)
+      
       
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -772,11 +778,6 @@ Polymer('g-spectrogram-mini', {
     this.analyser = analyser;
     this.freq = new Uint8Array(this.analyser.frequencyBinCount);
     this.freq2 = new Float32Array(this.analyser.frequencyBinCount);
-    var tempSegmentCtx = this.$.segmentview.getContext('2d');
-      // var tempSegmentCtx = this.segview.getContext('2d');
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
-    console.log(this.$.canvas.width)
-
     // Setup a timer to visualize some stuff.
     this.render();
   },
