@@ -186,160 +186,160 @@ Polymer('g-spectrogram-mini', {
     // return (self.currDat, self.dataTensorNormed);
   },
 
-  // predictModel: async function(data){
-  //   // converts from a canvas data object to a tensor
+  predictModel: async function(data){
+    // converts from a canvas data object to a tensor
 
-  //   this.start_time_ms = -1;
+    this.start_time_ms = -1;
  
-  //   // sum columns
-  //   var matrix = data
-  //   const numRows = matrix.length;
-  //   const numCols = matrix[0].length; // Assuming all rows have the same number of columns
+    // sum columns
+    var matrix = data
+    const numRows = matrix.length;
+    const numCols = matrix[0].length; // Assuming all rows have the same number of columns
     
-  //   const columnSums = new Array(numCols).fill(0);
+    const columnSums = new Array(numCols).fill(0);
   
-  //   for (let col = 0; col < numCols; col++) {
-  //     for (let row = 0; row < numRows; row++) {
-  //       columnSums[col] += 10**(matrix[row][col]);
-  //     }
-  //   }
+    for (let col = 0; col < numCols; col++) {
+      for (let row = 0; row < numRows; row++) {
+        columnSums[col] += 10**(matrix[row][col]);
+      }
+    }
 
-  //   // custom max
-  //   var arguments = columnSums
-  //   if (arguments.length === 0) {
-  //     return undefined; // Return undefined if no arguments are provided
-  //   }
-  //   let max = -Infinity; // Start with a very low value
-  //   for (let i = 1; i < arguments.length; i++) {
-  //     if (arguments[i] > max) {
-  //       max = arguments[i];
-  //     }
-  //   }
+    // custom max
+    var arguments = columnSums
+    if (arguments.length === 0) {
+      return undefined; // Return undefined if no arguments are provided
+    }
+    let max = -Infinity; // Start with a very low value
+    for (let i = 1; i < arguments.length; i++) {
+      if (arguments[i] > max) {
+        max = arguments[i];
+      }
+    }
     
-  //   // normalize
-  //   var array_2 = Array(columnSums);
-  //   for(var i = 0, length = columnSums.length; i < length; i++){
-  //       array_2[i] = columnSums[i] / max;
-  //   }
+    // normalize
+    var array_2 = Array(columnSums);
+    for(var i = 0, length = columnSums.length; i < length; i++){
+        array_2[i] = columnSums[i] / max;
+    }
 
-  //   // find max
-  //   const thresh_indexes = [];
-  //   for (let i = 2; i < array_2.length; i++) {
-  //     if (array_2[i] > this.thresh) {
-  //       thresh_indexes.push(i);
-  //     }
-  //   }
+    // find max
+    const thresh_indexes = [];
+    for (let i = 2; i < array_2.length; i++) {
+      if (array_2[i] > this.thresh) {
+        thresh_indexes.push(i);
+      }
+    }
     
-  //   start_time_ms = thresh_indexes[0]*10 - 20;
-  //   // to capture onset in msec
-  //   this.start_time_ms = start_time_ms;
+    start_time_ms = thresh_indexes[0]*10 - 20;
+    // to capture onset in msec
+    this.start_time_ms = start_time_ms;
 
-  //   start_time_ms = this.start_time_ms;
-  //   var start_frame = start_time_ms / 10;
-  //   data = tf.transpose(tf.tensor(data), [0, 1]);
-  //   var the_dat = data.slice([0, start_frame], [16, 15]);
-  //   // normalize
-  //   // tf.print(the_dat.slice([0, 0], [16, 1]));
-  //   var mean = tf.mean(the_dat);
-  //   var std = tf.moments(the_dat).variance.sqrt();
-  //   var normed_the_dat = tf.div(tf.sub(the_dat, mean), std);
-  //   var dataTensor = tf.stack([normed_the_dat]);
+    start_time_ms = this.start_time_ms;
+    var start_frame = start_time_ms / 10;
+    data = tf.transpose(tf.tensor(data), [0, 1]);
+    var the_dat = data.slice([0, start_frame], [16, 15]);
+    // normalize
+    // tf.print(the_dat.slice([0, 0], [16, 1]));
+    var mean = tf.mean(the_dat);
+    var std = tf.moments(the_dat).variance.sqrt();
+    var normed_the_dat = tf.div(tf.sub(the_dat, mean), std);
+    var dataTensor = tf.stack([normed_the_dat]);
 
-  //   var dataTensorNormedTransposed = tf.transpose(dataTensor, [0, 2, 1]);
+    var dataTensorNormedTransposed = tf.transpose(dataTensor, [0, 2, 1]);
     
-  //   // // gets model prediction
-  //   var y = model.predict(dataTensorNormedTransposed, {batchSize: 1});
+    // // gets model prediction
+    var y = model.predict(dataTensorNormedTransposed, {batchSize: 1});
     
-  //   // var y = self.model.predict(dataTensorNormedTransposed);
-  //   y = y.dataSync()
-  //   // console.log(y);
-  //   var max_y = Math.max.apply(null, y);
-  //   var min_y = Math.min.apply(null, y);
-  //   var y_scaled = [0, 0, 0];
-  //   for (i=0; i<3; i++){
-  //     y_scaled[i] = (y[i] - min_y) / (max_y - min_y);
-  //   }
+    // var y = self.model.predict(dataTensorNormedTransposed);
+    y = y.dataSync()
+    // console.log(y);
+    var max_y = Math.max.apply(null, y);
+    var min_y = Math.min.apply(null, y);
+    var y_scaled = [0, 0, 0];
+    for (i=0; i<3; i++){
+      y_scaled[i] = (y[i] - min_y) / (max_y - min_y);
+    }
     
-  //   // replaces the text in the result tag by the model prediction
-  //   // document.getElementById('pred1').style = "height: "+y_scaled[0] * 30 +"vh";
-  //   // document.getElementById('pred2').style = "height: "+y_scaled[1] * 30 +"vh";
-  //   // document.getElementById('pred3').style = "height: "+y_scaled[2] * 30 +"vh";
-  //   // document.getElementById('pred1_text').innerHTML = y[0].toLocaleString(
-  //   //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
-  //   // document.getElementById('pred2_text').innerHTML = y[1].toLocaleString(
-  //   //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
-  //   // document.getElementById('pred3_text').innerHTML = y[2].toLocaleString(
-  //   //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+    // replaces the text in the result tag by the model prediction
+    // document.getElementById('pred1').style = "height: "+y_scaled[0] * 30 +"vh";
+    // document.getElementById('pred2').style = "height: "+y_scaled[1] * 30 +"vh";
+    // document.getElementById('pred3').style = "height: "+y_scaled[2] * 30 +"vh";
+    // document.getElementById('pred1_text').innerHTML = y[0].toLocaleString(
+    //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+    // document.getElementById('pred2_text').innerHTML = y[1].toLocaleString(
+    //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+    // document.getElementById('pred3_text').innerHTML = y[2].toLocaleString(
+    //   undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
 
-  //   // localStorage.setItem("currDat", the_dat.arraySync());
-  //   // localStorage.setItem("dataTensorNormedArr", dataTensorNormed.arraySync());
-  //   // localStorage.setItem("dataTensorNormed", JSON.stringify(dataTensorNormed.arraySync()));
-  //   // console.log('stored');
+    // localStorage.setItem("currDat", the_dat.arraySync());
+    // localStorage.setItem("dataTensorNormedArr", dataTensorNormed.arraySync());
+    // localStorage.setItem("dataTensorNormed", JSON.stringify(dataTensorNormed.arraySync()));
+    // console.log('stored');
 
-  //   const classes = ["b", "d", "g", "null"];
-  //   var predictedClass = tf.argMax(y).array()
-  //   .then(predictedClass => {
-  //     document.getElementById("predClass").innerHTML = classes[predictedClass];
-  //     }
-  //   )
-  //   .catch(err =>
-  //     console.log(err));
+    const classes = ["b", "d", "g", "null"];
+    var predictedClass = tf.argMax(y).array()
+    .then(predictedClass => {
+      document.getElementById("predClass").innerHTML = classes[predictedClass];
+      }
+    )
+    .catch(err =>
+      console.log(err));
 
-  //   // setTimeout(() => {
-  //   //   document.getElementById('pred1').style = "height: "+1 +"vh";
-  //   //   document.getElementById('pred2').style = "height: "+1 +"vh";
-  //   //   document.getElementById('pred3').style = "height: "+1 +"vh";
-  //   // }, 1000);
-  // },
+    // setTimeout(() => {
+    //   document.getElementById('pred1').style = "height: "+1 +"vh";
+    //   document.getElementById('pred2').style = "height: "+1 +"vh";
+    //   document.getElementById('pred3').style = "height: "+1 +"vh";
+    // }, 1000);
+  },
 
-  // predictModel_noSegment: async function(){
-  //   // converts from a canvas data object to a tensor
-  //   var start_frame = this.custom_start_time_ms / 10;
+  predictModel_noSegment: async function(){
+    // converts from a canvas data object to a tensor
+    var start_frame = this.custom_start_time_ms / 10;
 
-  //   // start_frame = 34;
-  //   var the_dat = this.currDat.slice([0, start_frame], [16, 15]);
-  //   // mean and std transformation
+    // start_frame = 34;
+    var the_dat = this.currDat.slice([0, start_frame], [16, 15]);
+    // mean and std transformation
 
-  //   var mean = tf.mean(the_dat);
-  //   var std = tf.moments(the_dat).variance.sqrt();
-  //   var normed_the_dat = tf.div(tf.sub(the_dat, mean), std);
-  //   var dataTensor = tf.stack([normed_the_dat]);
-  //   self.dataTensorNormed = dataTensor;
-  //   var dataTensorNormedTransposed = tf.transpose(dataTensor, [0, 2, 1]);
+    var mean = tf.mean(the_dat);
+    var std = tf.moments(the_dat).variance.sqrt();
+    var normed_the_dat = tf.div(tf.sub(the_dat, mean), std);
+    var dataTensor = tf.stack([normed_the_dat]);
+    self.dataTensorNormed = dataTensor;
+    var dataTensorNormedTransposed = tf.transpose(dataTensor, [0, 2, 1]);
 
-  //   // gets model prediction
-  //   var y = self.model.predict(dataTensorNormedTransposed);
-  //   y = y.dataSync()
-  //   var y_scaled = [0, 0, 0];
-  //   var max_y = Math.max.apply(null, y);
-  //   var min_y = Math.min.apply(null, y);
-  //   for (i=0; i<3; i++){
-  //     y_scaled[i] = (y[i] - min_y) / (max_y - min_y);
-  //   }
+    // gets model prediction
+    var y = self.model.predict(dataTensorNormedTransposed);
+    y = y.dataSync()
+    var y_scaled = [0, 0, 0];
+    var max_y = Math.max.apply(null, y);
+    var min_y = Math.min.apply(null, y);
+    for (i=0; i<3; i++){
+      y_scaled[i] = (y[i] - min_y) / (max_y - min_y);
+    }
 
-  //   // replaces the text in the result tag by the model prediction
-  //   document.getElementById('pred1').style = "height: "+y_scaled[0] * 30 +"vh";
-  //   document.getElementById('pred2').style = "height: "+y_scaled[1] * 30 +"vh";
-  //   document.getElementById('pred3').style = "height: "+y_scaled[2] * 30 +"vh";
-  //   document.getElementById('pred1_text').innerHTML = y[0].toLocaleString(
-  //     undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
-  //     document.getElementById('pred2_text').innerHTML = y[1].toLocaleString(
-  //       undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
-  //       document.getElementById('pred3_text').innerHTML = y[2].toLocaleString(
-  //         undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+    // replaces the text in the result tag by the model prediction
+    document.getElementById('pred1').style = "height: "+y_scaled[0] * 30 +"vh";
+    document.getElementById('pred2').style = "height: "+y_scaled[1] * 30 +"vh";
+    document.getElementById('pred3').style = "height: "+y_scaled[2] * 30 +"vh";
+    document.getElementById('pred1_text').innerHTML = y[0].toLocaleString(
+      undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+      document.getElementById('pred2_text').innerHTML = y[1].toLocaleString(
+        undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
+        document.getElementById('pred3_text').innerHTML = y[2].toLocaleString(
+          undefined, { minimumFractionDigits: 2 , maximumFractionDigits :2});
 
-  //   localStorage.setItem("dataTensorNormedArr", dataTensorNormed.arraySync());
-  //   localStorage.setItem("dataTensorNormed", JSON.stringify(dataTensorNormed.arraySync()));
+    localStorage.setItem("dataTensorNormedArr", dataTensorNormed.arraySync());
+    localStorage.setItem("dataTensorNormed", JSON.stringify(dataTensorNormed.arraySync()));
 
-  //   const classes = ["b", "d", "g", "null"];
-  //   var predictedClass = tf.argMax(y).array()
-  //   .then(predictedClass => {
-  //     document.getElementById("predClass").innerHTML = classes[predictedClass];
-  //     }
-  //   )
-  //   .catch(err =>
-  //     console.log(err));
-  // },
+    const classes = ["b", "d", "g", "null"];
+    var predictedClass = tf.argMax(y).array()
+    .then(predictedClass => {
+      document.getElementById("predClass").innerHTML = classes[predictedClass];
+      }
+    )
+    .catch(err =>
+      console.log(err));
+  },
 
   createAudioGraph: async function() {
     if (this.audioContext) {
@@ -489,8 +489,8 @@ Polymer('g-spectrogram-mini', {
         this.color = false;
         document.getElementById('record-btn').style.border = "3px solid var(--c1)";
         document.getElementById('record-btn').style.color= "var(--c1)";        
-        // var data_pre = data_whole.arraySync();
-        // this.predictModel(data_pre);
+        var data_pre = data_whole.arraySync();
+        this.predictModel(data_pre);
         this.stopped = true;
         document.getElementById('record-btn').textContent = "Record";
         this.custom_start_time_ms = this.start_time_ms;
@@ -581,8 +581,6 @@ Polymer('g-spectrogram-mini', {
     // Copy the current canvas onto the temp canvas.
     var ctx = this.ctx;
     var segmentCtx = this.segmentCtx
-    const segview_width = this.$.canvas.width;
-    const segview_height = this.$.canvas.height;
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -623,8 +621,7 @@ Polymer('g-spectrogram-mini', {
       // Reset the transformation matrix.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
     } else {
-      var tempSegmentCtx = this.$.segmentview.getContext('2d');
-      tempSegmentCtx.clearRect(0, 0, this.width, this.height);
+      var tempSegmentCtx = this.segview.getContext('2d');
       // var tempSegmentCtx = this.segview.getContext('2d');
       tempSegmentCtx.scale(1/4, 1/4);
       tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.width, this.height)
@@ -662,7 +659,8 @@ Polymer('g-spectrogram-mini', {
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
         0, 0, this.width, this.height);
 
-      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);      
+      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);    
+      tempSegmentCtx.clearRect(0, 0, this.width, this.height);  
       
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
