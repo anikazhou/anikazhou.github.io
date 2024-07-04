@@ -499,8 +499,7 @@ Polymer('g-spectrogram-mini', {
     }
     var tempSegmentCtx = this.$.segmentview.getContext('2d');
     // var tempSegmentCtx = this.segview.getContext('2d');
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, tempSegmentCtx.width, tempSegmentCtx.height,
-                              0, 0, tempSegmentCtx.width/4, tempSegmentCtx.height/4)
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
 
     // if (this.stopped){
     //   document.getElementById('record-btn').onclick = () => {
