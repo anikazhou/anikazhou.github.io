@@ -489,8 +489,8 @@ Polymer('g-spectrogram-mini', {
         this.color = false;
         document.getElementById('record-btn').style.border = "3px solid var(--c1)";
         document.getElementById('record-btn').style.color= "var(--c1)";        
-        var data_pre = data_whole.arraySync();
-        this.predictModel(data_pre);
+        // var data_pre = data_whole.arraySync();
+        // this.predictModel(data_pre);
         this.stopped = true;
         document.getElementById('record-btn').textContent = "Record";
         this.custom_start_time_ms = this.start_time_ms;
