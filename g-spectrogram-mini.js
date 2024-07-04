@@ -665,6 +665,7 @@ Polymer('g-spectrogram-mini', {
       // var tempSegmentCtx = this.segview.getContext('2d');
       tempSegmentCtx.scale(1/4, 1/4);
       tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
+      tempSegmentCtx.setTransform(1, 0, 0, 1, 0, 0);
       console.log(this.$.canvas.width)
       
       
