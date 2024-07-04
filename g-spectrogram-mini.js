@@ -500,6 +500,7 @@ Polymer('g-spectrogram-mini', {
     var tempSegmentCtx = this.$.segmentview.getContext('2d');
     // var tempSegmentCtx = this.segview.getContext('2d');
     tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
+    console.log(this.$.canvas.width)
 
     // if (this.stopped){
     //   document.getElementById('record-btn').onclick = () => {
