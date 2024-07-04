@@ -657,12 +657,7 @@ Polymer('g-spectrogram-mini', {
         // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
         //   0, 0, segview_width, segview_height)
         console.log("drawn other")
-      }
-      console.log(`Source Canvas: ${this.$.canvas.width}x${this.$.canvas.height}`);
-      console.log(`Temp Canvas: ${this.tempCanvas.width}x${this.tempCanvas.height}`);
-      console.log(`Segment Canvas: ${this.segmentview.width}x${this.segmentview.height}`);
-      tempSegmentCtx.clearRect(0, 0, this.width, this.height);
-      
+      }      
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
       // Draw the copied image.
