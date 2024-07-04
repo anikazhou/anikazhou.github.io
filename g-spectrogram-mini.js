@@ -585,7 +585,10 @@ Polymer('g-spectrogram-mini', {
     this.segview.width = this.$.canvas.width;
     this.segview.height = this.$.canvas.height;
     tempSegmentCtx.drawImage(this.$.canvas, 0, 0, this.segview.width, this.segview.height)
-    console.log("set height")
+    console.log("set width")
+    console.log(tempSegmentCtx.canvas.width)
+    console.log("real width")
+    console.log(this.width)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
