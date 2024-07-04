@@ -497,6 +497,9 @@ Polymer('g-spectrogram-mini', {
         console.log("stopped")
       }
     }
+    var tempSegmentCtx = this.$.segmentview.getContext('2d');
+    // var tempSegmentCtx = this.segview.getContext('2d');
+    tempSegmentCtx.drawImage(this.$.canvas, 0, 0)
 
     // if (this.stopped){
     //   document.getElementById('record-btn').onclick = () => {
@@ -581,11 +584,8 @@ Polymer('g-spectrogram-mini', {
     // Copy the current canvas onto the temp canvas.
     var ctx = this.ctx;
     var segmentCtx = this.segmentCtx
-    var tempSegmentCtx = this.segview.getContext('2d');
     const segview_width = this.$.canvas.width;
     const segview_height = this.$.canvas.height;
-    tempSegmentCtx.drawImage(this.$.canvas, 0, 0, segview_width, segview_height, 
-                            0, 0, segview_width, segview_width)
 
     // not stopped case: keep plotting
     if (this.stopped == false){
@@ -642,10 +642,8 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
-        var imageData = tempSegmentCtx.getImageData(0, 0, this.width, this.height);
-        console.log(imageData);
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
-          0, 0, segview_width, segview_height)
+        // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
+        //   0, 0, segview_width, segview_height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 
         //   0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height, 
         //   0, 0, (this.width-horiz_shift_start1)-(this.width-horiz_shift_start), this.height)
@@ -656,8 +654,8 @@ Polymer('g-spectrogram-mini', {
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
         //   this.width - horiz_shift_start - 10, this.height, 0, 0, 
         //   this.width - horiz_shift_start, this.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
-          0, 0, segview_width, segview_height)
+        // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, segview_width, segview_height,
+        //   0, 0, segview_width, segview_height)
         console.log("drawn other")
       }
       console.log(`Source Canvas: ${this.$.canvas.width}x${this.$.canvas.height}`);
