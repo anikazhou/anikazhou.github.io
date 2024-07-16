@@ -654,12 +654,13 @@ Polymer('g-spectrogram-mini', {
         // tempSegmentCtx.canvas.height, 0, 0, (tempSegmentCtx.canvas.width-horiz_shift_start1)-
         // (tempSegmentCtx.canvas.width-horiz_shift_start), tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height);
-        console.log("drawn reg")          
+        console.log("drawn reg")  
+        console.log(this.width + " & " + this.height)
+        console.log(tempSegmentCtx.canvas.width + " other " + tempSegmentCtx.canvas.height)        
         console.log(this.width - horiz_shift_start)
-        console.log(this.width + "&" + this.height)
-        console.log(tempSegmentCtx.canvas.width + "other" + tempSegmentCtx.canvas.height)
         console.log(tempSegmentCtx.canvas.width - horiz_shift_start)
         console.log(horiz_shift_start-horiz_shift_start1)
+        console.log(horiz_shift_start + " hss " + horiz_shift_start1)
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
@@ -674,7 +675,7 @@ Polymer('g-spectrogram-mini', {
       ctx.drawImage(this.tempCanvas2, 0, 0, this.width, this.height,
         0, 0, this.width, this.height);
 
-      tempSegmentCtx.canvas.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);  
+      tempSegmentCtx.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);  
       
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
