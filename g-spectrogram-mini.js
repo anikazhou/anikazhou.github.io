@@ -655,12 +655,12 @@ Polymer('g-spectrogram-mini', {
         // (tempSegmentCtx.canvas.width-horiz_shift_start), tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height);
         console.log("drawn reg")  
-        console.log(this.width + " & " + this.height)
-        console.log(tempSegmentCtx.canvas.width + " other " + tempSegmentCtx.canvas.height)        
-        console.log(this.width - horiz_shift_start)
-        console.log(tempSegmentCtx.canvas.width - horiz_shift_start)
-        console.log(horiz_shift_start-horiz_shift_start1)
-        console.log(horiz_shift_start + " hss " + horiz_shift_start1)
+        console.log("width: " + this.width + " & " + "height: " + this.height)
+        console.log("width: " +tempSegmentCtx.canvas.width + " other " + "height: " + tempSegmentCtx.canvas.height)        
+        console.log("width - hss: " + this.width - horiz_shift_start)
+        console.log("other width - hss: " + tempSegmentCtx.canvas.width - horiz_shift_start)
+        console.log("shift dif: " + horiz_shift_start-horiz_shift_start1)
+        console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1)
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
