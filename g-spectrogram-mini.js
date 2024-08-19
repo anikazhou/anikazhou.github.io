@@ -644,7 +644,7 @@ Polymer('g-spectrogram-mini', {
         // segmentCtx.drawImage(tempSegmentCtx.canvas, tempSegmentCtx.canvas.width - horiz_shift_start+5, 
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start1, 0, 150, 
+        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start, 0, 150, 
           tempSegmentCtx.canvas.height, 0, 0, 150, tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start, 
         //     0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
@@ -657,9 +657,9 @@ Polymer('g-spectrogram-mini', {
         console.log("drawn reg")  
         console.log("width: " + this.width + " & " + "height: " + this.height)
         console.log("width: " +tempSegmentCtx.canvas.width + " other " + "height: " + tempSegmentCtx.canvas.height)        
-        console.log("width - hss: " + this.width - horiz_shift_start)
-        console.log("other width - hss: " + tempSegmentCtx.canvas.width - horiz_shift_start)
-        console.log("shift dif: " + horiz_shift_start-horiz_shift_start1)
+        console.log("width - hss:" + " "+this.width - horiz_shift_start)
+        console.log("other width - hss: " + ""+tempSegmentCtx.canvas.width - horiz_shift_start)
+        console.log("shift dif: " + ""+horiz_shift_start-horiz_shift_start1)
         console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1)
       }
       else {
