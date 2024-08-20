@@ -676,7 +676,6 @@ Polymer('g-spectrogram-mini', {
         0, 0, this.width, this.height);
 
       tempSegmentCtx.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);  
-      segmentCtx.clearRect(0, 0, segmentCtx.canvas.width, segmentCtx.canvas.height)
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
