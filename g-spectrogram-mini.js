@@ -644,8 +644,8 @@ Polymer('g-spectrogram-mini', {
         // segmentCtx.drawImage(tempSegmentCtx.canvas, tempSegmentCtx.canvas.width - horiz_shift_start+5, 
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start, 0, 150, 
-          tempSegmentCtx.canvas.height, 0, 0, 150, tempSegmentCtx.canvas.height)
+        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start1, 0, 150/4, 
+          tempSegmentCtx.canvas.height, 0, 0, 150/4, tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start, 
         //     0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
         //     0, 0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height)
@@ -676,7 +676,7 @@ Polymer('g-spectrogram-mini', {
         0, 0, this.width, this.height);
 
       tempSegmentCtx.clearRect(0, 0, tempSegmentCtx.canvas.width, tempSegmentCtx.canvas.height);  
-      
+      segmentCtx.clearRect(0, 0, segmentCtx.canvas.width, segmentCtx.canvas.height)
       // Reset the transformation matrix.
       // ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
