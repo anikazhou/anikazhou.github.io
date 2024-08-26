@@ -639,12 +639,12 @@ Polymer('g-spectrogram-mini', {
 
       var horiz_shift_start1 = horiz_shift - (this.custom_start_time_ms / 10 + 15) * this.speed;
       
-      if (horiz_shift_start1 > 0) {
+      // if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
         // segmentCtx.drawImage(tempSegmentCtx.canvas, tempSegmentCtx.canvas.width - horiz_shift_start+5, 
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start, 0, 150/4, 
+        segmentCtx.drawImage(tempSegmentCtx.canvas, horiz_shift_start1, 0, 150/4, 
           tempSegmentCtx.canvas.height, 0, 0, 150/4, tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start, 
         //     0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
@@ -661,14 +661,14 @@ Polymer('g-spectrogram-mini', {
         console.log("other width - hss: " + ""+tempSegmentCtx.canvas.width - horiz_shift_start)
         console.log("shift dif: " + ""+horiz_shift_start-horiz_shift_start1)
         console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1)
-      }
-      else {
-        tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
-        // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
-        //   horiz_shift_start - 10, this.height, 0, 0, 
-        //   horiz_shift_start - 10, this.height)
-        console.log("drawn other")
-      }      
+      // }
+      // else {
+      //   tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
+      //   // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
+      //   //   horiz_shift_start - 10, this.height, 0, 0, 
+      //   //   horiz_shift_start - 10, this.height)
+      //   console.log("drawn other")
+      // }      
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
       // Draw the copied image.
