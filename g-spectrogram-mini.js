@@ -641,6 +641,7 @@ Polymer('g-spectrogram-mini', {
       
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
+        tempCtx.fillRect(50, 0,5,this.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, tempSegmentCtx.canvas.width - horiz_shift_start+5, 
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
