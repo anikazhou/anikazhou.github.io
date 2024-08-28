@@ -658,10 +658,11 @@ Polymer('g-spectrogram-mini', {
         console.log("drawn reg")  
         console.log("width: " + this.width + " & " + "height: " + this.height)
         console.log("width: " +tempSegmentCtx.canvas.width + " other " + "height: " + tempSegmentCtx.canvas.height)        
-        console.log("width - hss:" + " "+(this.width - horiz_shift_start)+" hss1 "+ (this.width-horiz_shift_start1))
+        console.log("width - hss: "+(this.width - horiz_shift_start)+" hss1 "+ (this.width-horiz_shift_start1))
         console.log("other width - hss: " + ""+(tempSegmentCtx.canvas.width - horiz_shift_start))
         console.log("shift dif: " + ""+(horiz_shift_start-horiz_shift_start1))
         console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1)
+        console.log("width-hss: " + (725-horiz_shift_start))
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
