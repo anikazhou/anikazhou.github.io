@@ -642,10 +642,11 @@ Polymer('g-spectrogram-mini', {
       if (horiz_shift_start1 > 0) {
         tempCtx2.fillRect(this.width - horiz_shift_start1, 0, 5, this.height);
         tempCtx2.fillRect(50, 0,5,this.height)
+        const wid = this.width
         // segmentCtx.drawImage(tempSegmentCtx.canvas, tempSegmentCtx.canvas.width - horiz_shift_start+5, 
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
-        segmentCtx.drawImage(tempSegmentCtx.canvas, 725-horiz_shift_start, 0, 150/4, 
+        segmentCtx.drawImage(tempSegmentCtx.canvas, wid-horiz_shift_start, 0, 150/4, 
           tempSegmentCtx.canvas.height, 0, 0, 150/4, tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start, 
         //     0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
