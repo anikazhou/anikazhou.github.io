@@ -645,7 +645,7 @@ Polymer('g-spectrogram-mini', {
         //   0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height, 
         //   0, 0, horiz_shift_start1-horiz_shift_start, tempSegmentCtx.canvas.height)
         segmentCtx.drawImage(tempSegmentCtx.canvas, 725-horiz_shift_start, 0, 150/4, 
-        tempSegmentCtx.canvas.height, 0, 0, 150/4, tempSegmentCtx.canvas.height)
+        tempSegmentCtx.canvas.height, 0, 0, 150/4, tempSegmentCtx.canvas.height);
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start, 
         //     0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height, 
         //     0, 0, horiz_shift_start-horiz_shift_start1, tempSegmentCtx.canvas.height)
@@ -654,21 +654,21 @@ Polymer('g-spectrogram-mini', {
         // tempSegmentCtx.canvas.height, 0, 0, (tempSegmentCtx.canvas.width-horiz_shift_start1)-
         // (tempSegmentCtx.canvas.width-horiz_shift_start), tempSegmentCtx.canvas.height)
         // segmentCtx.drawImage(tempSegmentCtx.canvas, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height, 0, 0, tempSegmentCtx.canvas.width / 2, tempSegmentCtx.canvas.height);
-        console.log("drawn reg")  
-        console.log("width: " + this.width + " & " + "height: " + this.height)
-        console.log("width: " +tempSegmentCtx.canvas.width + " other " + "height: " + tempSegmentCtx.canvas.height)        
-        console.log("width - hss: "+(this.width - horiz_shift_start)+" hss1 "+ (this.width-horiz_shift_start1))
-        console.log("other width - hss: " +(tempSegmentCtx.canvas.width - horiz_shift_start))
-        console.log("shift dif: " + (horiz_shift_start-horiz_shift_start1))
-        console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1)
-        console.log("width-hss: " + (725-horiz_shift_start))
+        console.log("drawn reg");
+        console.log("width: " + this.width + " & " + "height: " + this.height);
+        console.log("width: " +tempSegmentCtx.canvas.width + " other " + "height: " + tempSegmentCtx.canvas.height);        
+        console.log("width - hss: "+(this.width - horiz_shift_start)+" hss1 "+ (this.width-horiz_shift_start1));
+        console.log("other width - hss: " +(tempSegmentCtx.canvas.width - horiz_shift_start));
+        console.log("shift dif: " + (horiz_shift_start-horiz_shift_start1));
+        console.log("hss: " + horiz_shift_start + " hss1: " + horiz_shift_start1);
+        console.log("width-hss: " + (725-horiz_shift_start));
       }
       else {
         tempCtx2.fillRect(this.width - 10, 0, 5, this.height);
         // segmentCtx.drawImage(tempSegmentCtx.canvas, this.width - horiz_shift_start+5, 0,
         //   horiz_shift_start - 10, this.height, 0, 0, 
         //   horiz_shift_start - 10, this.height)
-        console.log("drawn other")
+        console.log("drawn other");
       }      
       // Translate the canvas.
       // ctx.translate(-this.speed, 0);
